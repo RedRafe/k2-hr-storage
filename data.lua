@@ -37,13 +37,18 @@ end
 
 -- Storage Tanks
 
-local tank1 = data.raw["storage-tank"]["kr-fluid-storage-1"]
-log(serpent.block(tank1))
-tank1.pictures.picture.sheets[1] = tank1.pictures.picture.sheets[1].hr_version
-tank1.pictures.picture.sheets[2] = tank1.pictures.picture.sheets[2].hr_version
---tank1.picture.gas_flow = tank1.picture.gas_flow.hr_version
+local storage_tanks = {
+  "kr-fluid-storage-1",
+  "kr-fluid-storage-2"
+}
 
-local tank2 = data.raw["storage-tank"]["kr-fluid-storage-2"]
-tank2.pictures.picture.sheets[1] = tank2.pictures.picture.sheets[1].hr_version
-tank2.pictures.picture.sheets[2] = tank2.pictures.picture.sheets[2].hr_version
---tank2.picture.gas_flow = tank2.picture.gas_flow.hr_version
+local function upgradeGraphicsTank(entity)
+  entity.pictures.picture.sheets[1] = entity.pictures.picture.sheets[1].hr_version
+  entity.pictures.picture.sheets[2] = entity.pictures.picture.sheets[2].hr_version
+--entity.picture.gas_flow = entity.picture.gas_flow.hr_version
+end
+
+for ___, tank in pairs(storage_tanks) do
+  upgradeGraphicsTank(data.raw["storage-tank"][tank])
+end
+
